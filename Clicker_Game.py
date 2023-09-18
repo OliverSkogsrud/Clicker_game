@@ -6,6 +6,14 @@ import random
 import time
 import pygame
 from PIL import ImageTk, Image, ImageOps
+import sys, os
+if getattr(sys, 'frozen', False):
+    # If the application is run as a bundle, the PyInstaller bootloader
+    # extends the sys module by a flag frozen=True and sets the app 
+    # path into variable _MEIPASS'.
+    application_path = sys._MEIPASS
+else:
+    application_path = os.path.dirname(os.path.abspath(__file__))
 
 tk = Tk()
 
@@ -29,14 +37,14 @@ pygame.mixer.init()
 enableclicksper = 0
 
 eanble5xclick = 0
-img = Image.open("smurfcat.jpeg")
+img = Image.open(os.path.join(application_path, "smurfcat.jpeg"))
 
 
 rezised_image = ImageOps.contain(img, (100,50))
 photo = ImageTk.PhotoImage(rezised_image)
 
 def playsound():
-    pygame.mixer.music.load("mouseclick.mp3")
+    pygame.mixer.music.load(os.path.join(application_path, "mouseclick.mp3"))
     pygame.mixer.music.play(loops=0)
     pygame.mixer.music.set_volume(2)
 
@@ -53,9 +61,9 @@ def randomize():
         messagebox.showinfo("clicker game", "not enough clicks you need 200 clicks")
     
 def background_music():
-    pygame.mixer.music.load("elevator_music.mp3")
+    pygame.mixer.music.load(os.path.join(application_path,"elevator_music.mp3"))
     pygame.mixer.music.play(loops= True)
-    pygame.mixer.Channel(1).play(pygame.mixer.Sound("elevator_music.mp3"))
+    pygame.mixer.Channel(1).play(pygame.mixer.Sound(os.path.join(application_path,"elevator_music.mp3")))
 
 background_music()
 
@@ -118,7 +126,6 @@ button.pack(padx=100,ipadx=100 ,ipady=75,)#Ipady står for internal padding
 
 ranodom_button = ttk.Button(tk,text="Randomize",command=randomize, width= 25)
 ranodom_button.pack(padx=100,ipady = 75)
-
 
 tk.mainloop()
 
