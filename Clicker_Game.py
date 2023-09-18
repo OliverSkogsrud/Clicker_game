@@ -5,13 +5,13 @@ from tkinter import *
 import random
 import time
 import pygame
-
+from PIL import ImageTk, Image, ImageOps
 
 tk = Tk()
 
 tk.geometry("800x500")
 
-tk.title("clicker game")
+tk.title("Smurfcat clicker")
 
 clicks = 0
 
@@ -29,9 +29,11 @@ pygame.mixer.init()
 enableclicksper = 0
 
 eanble5xclick = 0
+img = Image.open("smurfcat.jpeg")
 
 
-
+rezised_image = ImageOps.contain(img, (100,50))
+photo = ImageTk.PhotoImage(rezised_image)
 
 def playsound():
     pygame.mixer.music.load("mouseclick.mp3")
@@ -111,8 +113,8 @@ more_click = ttk.Button(tk,text="5x Click",command= double_click, width = 20)
 more_click.pack()
 
 
-button = ttk.Button(tk,text="Click Me",command=onClick , width = 50)
-button.pack(padx=100, ipady=100,)#Ipady står for internal padding
+button = ttk.Button(tk,command=onClick , width = 50, image = photo)
+button.pack(padx=100,ipadx=100 ,ipady=75,)#Ipady står for internal padding
 
 ranodom_button = ttk.Button(tk,text="Randomize",command=randomize, width= 25)
 ranodom_button.pack(padx=100,ipady = 75)
