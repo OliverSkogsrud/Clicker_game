@@ -53,7 +53,7 @@ def randomize():
     global clicks
     if clicks >= 200:
         clicks -= 200
-        clicks += random.randint(1,500)
+        clicks += random.randint(1,400)
         clicklabel.config(text=clicks)
         playsound()
     
